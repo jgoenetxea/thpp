@@ -55,6 +55,7 @@ TEST(Storage, CustomAllocator) {
   };
 
   // 1. delete the storage first, then the IO buf
+#ifndef NO_FOLLY
   auto ctx = TestContext();
   auto thStorage = THFloatStorage_newWithAllocator(42, &testAlloc, &ctx);
   EXPECT_EQ(ctx.nMalloc, 1);
@@ -81,7 +82,7 @@ TEST(Storage, CustomAllocator) {
   THFloatStorage_free(thStorage);
   EXPECT_EQ(ctx.nFree, 1);
   EXPECT_EQ(ctx.nMalloc, 1);
-
+#endif
 }
 
 }}  // namespaces
